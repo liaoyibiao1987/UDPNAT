@@ -31,6 +31,24 @@ namespace UDPCOMMON
             get { return message; }
         }
     }
+    /// <summary> 
+    /// 聊天消息 
+    /// </summary> 
+    [Serializable]
+    public class P2P_HoldingsMessage : P2P_MessageBase
+    {
+        private readonly string message;
+
+        public P2P_HoldingsMessage(string msg)
+        {
+            message = msg;
+        }
+
+        public string Message
+        {
+            get { return message; }
+        }
+    }
 
     /// <summary> 
     /// UDP打洞测试消息 

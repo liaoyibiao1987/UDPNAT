@@ -46,6 +46,7 @@
     <Compile Include="P2P_MessageBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="S2C_MessageBase.cs" />
+    <Compile Include="UDPPortMaintain.cs" />
     <Compile Include="UserAction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

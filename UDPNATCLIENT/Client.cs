@@ -46,7 +46,7 @@ namespace UDPNATCLIENT
         private void DoWriteLog(string log)
         {
             if (_OnWriteMessage != null)
-                ((Control) _OnWriteMessage.Target).Invoke(_OnWriteMessage, log);
+                ((Control)_OnWriteMessage.Target).Invoke(_OnWriteMessage, log);
         }
 
         /// <summary> 
@@ -124,7 +124,7 @@ namespace UDPNATCLIENT
         private void DisplayUsers(UserCollection users)
         {
             if (_UserChangedHandle != null)
-                ((Control) _UserChangedHandle.Target).Invoke(_UserChangedHandle, users);
+                ((Control)_UserChangedHandle.Target).Invoke(_UserChangedHandle, users);
         }
 
         //运行线程 
@@ -203,6 +203,11 @@ namespace UDPNATCLIENT
                         P2P_TalkMessage workMsg = (P2P_TalkMessage)msgObj;
                         DoWriteLog(workMsg.Message);
                     }
+                    else if (msgType == typeof(P2P_HoldingsMessage))
+                    {
+                        P2P_HoldingsMessage workMsg = (P2P_HoldingsMessage)msgObj;
+                        StartHoldingEachOther(workMsg);
+                    }
                     else
                     {
                         DoWriteLog("收到未知消息!");
@@ -210,6 +215,15 @@ namespace UDPNATCLIENT
                 }
             }
             catch (Exception ex) { DoWriteLog(ex.Message); }
+        }
+
+
+        private void StartHoldingEachOther(P2P_HoldingsMessage workMsg)
+        {
+            string[] spiter = workMsg.Message.Split(':');
+            int port = 0;
+            int.TryParse(spiter[1], out port);
+
         }
 
         private void UpdateConnection(string user, IPEndPoint ep)
@@ -236,7 +250,7 @@ namespace UDPNATCLIENT
             }
             catch
             {
-                
+
             }
         }
 

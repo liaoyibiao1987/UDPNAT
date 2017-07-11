@@ -75,6 +75,18 @@ namespace UDPCOMMON
                    "] " +
                    (_conntected ? "Y" : "N");
         }
+
+        public string GetIPPort()
+        {
+            if (_netPoint != null)
+            {
+                return _netPoint.Address + ":" + _netPoint.Port.ToString(CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                return "0.0.0.0:0";
+            }
+        }
     }
 
     /// <summary> 
@@ -95,7 +107,7 @@ namespace UDPCOMMON
 
         public User this[int index]
         {
-            get { return (User) InnerList[index]; }
+            get { return (User)InnerList[index]; }
         }
 
         public User Find(string userName)
@@ -114,10 +126,10 @@ namespace UDPCOMMON
         public static byte[] Serialize(object obj)
         {
             var binaryF = new BinaryFormatter();
-            var ms = new MemoryStream(1024*10);
+            var ms = new MemoryStream(1024 * 10);
             binaryF.Serialize(ms, obj);
             ms.Seek(0, SeekOrigin.Begin);
-            var buffer = new byte[(int) ms.Length];
+            var buffer = new byte[(int)ms.Length];
             ms.Read(buffer, 0, buffer.Length);
             ms.Close();
             return buffer;
